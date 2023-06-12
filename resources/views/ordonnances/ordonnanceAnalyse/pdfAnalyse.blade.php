@@ -67,7 +67,7 @@
         <p>Ordonnance Médicale</p>
         <p>{{ $analyse->date }}</p>
         <p><strong>Nom & Prénom :</strong> {{ $analyse->consultation->rdv->patient->nom }} {{ $analyse->consultation->rdv->patient->prenom }}</p>
-        <h5 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;margin-bottom:30px;">faire š'il vous plaît les radiologies suivant:</h5>
+        <h5 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;margin-bottom:30px;">faire š'il vous plaît les analyses suivant:</h5>
         <input type="checkbox" id="radiographie">
     <label for="radiographie">Numération formule sanguine</label><br>
     

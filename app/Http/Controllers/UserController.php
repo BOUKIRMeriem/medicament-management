@@ -10,12 +10,15 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\LoginNotification;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+
+
 class UserController extends Controller
-{  
+{    
 public function login(){
          return view('authentification.login');
 }
   
+
 public function check(Request $request){
     $request->validate([ 
         'username' => 'required',
@@ -109,5 +112,6 @@ public function update(Request $request, User $user) {
             ]);
             return redirect('/user')->with("success","User mis à jour avec succès!");
 }
+     
 }
 

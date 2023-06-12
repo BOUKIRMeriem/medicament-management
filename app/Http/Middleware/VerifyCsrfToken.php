@@ -12,6 +12,35 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        '/url-pour-la-methode-http-autre-que-get-post-put-ou-delete'
+        // Add your exceptions here
     ];
+    
+    /**
+     * Determine if the request should be considered stateful.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function isReading($request)
+    {
+        if (in_array($request->method(), ['HEAD', 'GET', 'OPTIONS'])) {
+            return true;
+        }
+        
+        return parent::isReading($request);
+    }
+    
+    /**
+     * Determine if the session and input CSRF tokens match.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function tokensMatch($request)
+    {
+        $sessionToken = $request->session()->token();
+        $token = $request->input('_token') ?: $request->header('X-CSRF-TOKEN');
+        
+        return hash_equals($sessionToken, $token);
+    }
 }

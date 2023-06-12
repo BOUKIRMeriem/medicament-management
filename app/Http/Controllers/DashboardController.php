@@ -16,6 +16,7 @@ use App\Models\Consultation;
 use App\Models\Ordonnance;
 class DashboardController extends Controller
 {
+
     public function getAppointments()
     {
         $appointments = Rdv::leftJoin('medecins', 'rdvs.medecin_id', '=', 'medecins.id')
@@ -37,11 +38,7 @@ class DashboardController extends Controller
    
 public function dashboard(Request $request)
 {
-   
     $userId = $request->input('id');
-  
-
-    
     $opt = Auth::id();
     $user = User::find($userId);
     $valide = $request->get('valide');
@@ -50,18 +47,13 @@ public function dashboard(Request $request)
     $totalRdvs = Rdv::query()->count();
     $totalConsultations = Consultation::query()->count();
     $totalOrdonnances = Ordonnance::query()->count();  
-
-
     $demandes = DemandeRdv::where('valide', false)->orderBy('date', 'asc')->paginate(5);
     return view('layout.dashboard', compact('user','demandes', 'valide',
      'totalMedecins', 'totalPatients', 'totalRdvs',
       'totalConsultations', 'totalOrdonnances','request'));
 }
 
-    
-    
-
-    public function getAgeChartData()
+   public function getAgeChartData()
 {
     $patients = Patient::all();
     $ageGroups = [0, 12, 18, 30, 50, 60, 70, 80, 90]; // Groupes d'âge
@@ -125,12 +117,6 @@ public function valider(DemandeRdv $demande)
     // Rediriger ou retourner une réponse appropriée
     return redirect()->back()->with('success', 'Demande validée et ajoutée à la table de rendez-vous.');
 }
-
-
-
-
-
-
 
 
 }

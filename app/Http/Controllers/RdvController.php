@@ -5,7 +5,8 @@ use App\Models\Rdv;
 use App\Models\Patient;
 use App\Models\Medecin;
 use Illuminate\Http\Request;
-
+use App\Services\AppointmentReminderService;
+use App\Mail\AppointmentReminderMail;
 class RdvController extends Controller
 {
     public function index(Request $request)
@@ -141,6 +142,18 @@ public function rechercher(Request $request)
     return view('rdvs.masterRdv', compact('rdvs', 'rechercher',"request"));
 }
 
+private $appointmentReminderService;
+
+      public function __construct(AppointmentReminderService $appointmentReminderService)
+    {
+        $this->appointmentReminderService = $appointmentReminderService;
+    }
+
+     public function sendAppointmentReminders()
+    {
+        $this->appointmentReminderService->sendAppointmentReminders();
+        return "Notifications de rappel de rendez-vous envoyées avec succès.";
+    }
 
 }   
    
